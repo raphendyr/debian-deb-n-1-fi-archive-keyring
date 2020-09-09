@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = 'configure' -a -n "$2" ]; then
+	# remove keys from the trusted.gpg file as they are now shipped in /usr/share/kyerings
+	if which gpg > /dev/null && which apt-key > /dev/null; then
+		TRUSTEDFILE='/etc/apt/trusted.gpg'
+		eval $(apt-config shell TRUSTEDFILE Apt::GPGV::TrustedKeyring)
+		eval $(apt-config shell TRUSTEDFILE Dir::Etc::Trusted/f)
+		if [ -e "$TRUSTEDFILE" ]; then
+			# 1. jaakko@n-1.fi - developer key, not supposed to be trusted
+			# 2. archive@n-1.fi - archive key is now directly trsuted for this repository only
+			for KEY in \
+				43D826EBEABB460B144138713E0AE979094264F6 \
+				6DC7519261824BBEB8C67E940715999BCCE7BE58 \
+			; do
+				apt-key --keyring "$TRUSTEDFILE" del "$KEY" >/dev/null 2>&1 || :
+			done
+		fi
+	fi
+
+	# remove old list file
+	for f in /etc/apt/sources.list.d/*.list; do
+		if grep -qsE 'deb(-src)?.*https?://deb\.n-1\.fi' "$f"; then
+			sed -i 's,^\s*\(deb\(-src\)\?.*https\?://deb\.n-1\.fi\),# \1,' "$f"
+			if ! (grep -v '^\s*#' "$f" | grep -qs '^\s*deb'); then
+				rm -v "$f"
+			fi
+		fi
+	done
+fi
+
+#DEBHELPER#

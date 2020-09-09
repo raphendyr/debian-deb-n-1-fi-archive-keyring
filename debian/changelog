@@ -1,0 +1,5 @@
+deb-n-1-fi-archive-keyring (2020.9) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Jaakko Kantojärvi <jaakko@n-1.fi>  Mon, 07 Sep 2020 22:22:34 +0300
