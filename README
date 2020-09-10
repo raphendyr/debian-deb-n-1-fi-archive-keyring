@@ -1,4 +1,4 @@
-README for the deb-n-1-fi-archive-keyring package
+README for the deb.n-1.fi-archive-keyring package
 =================================================
 
 Introduction
@@ -14,15 +14,15 @@ system to use packages from deb.n-1.fi and to verify the signatures.
 
 A quick overview about this package:
 
-* /etc/apt/sources.list.d/deb-n-1-fi.sources:
+* /etc/apt/sources.list.d/deb.n-1.fi.sources:
   An apt sources configuration for deb.n-1.fi.
-* /etc/apt/preferences.d/deb-n-1-fi.pref:
+* /etc/apt/preferences.d/deb.n-1.fi.pref:
   An apt preferences configuration to lower priorities for deb.n-1.fi,
   so packages from the official release have higher priority.
-* /usr/share/keyrings/deb-n-1-fi-archive-keyring.gpg:
+* /usr/share/keyrings/deb.n-1.fi-archive-keyring.gpg:
   A keyring including all actively used keys to sign Release files in
   the deb.n-1.fi.
-* /usr/share/keyrings/deb-n-1-fi-removed-keys.gpg:
+* /usr/share/keyrings/deb.n-1.fi-removed-keys.gpg:
   A keyring including all keys used previously by the deb.n-1.fi, which
   are no longer supported. These keys are no longer used to sign
   Release files. The file can be used to verify old signatures.

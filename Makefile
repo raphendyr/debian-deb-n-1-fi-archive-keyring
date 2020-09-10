@@ -3,8 +3,8 @@ REMOVED-LIST := $(wildcard removed-keys/*.asc)
 SUPPORTING-LIST := $(wildcard supporting-keys/*.asc)
 
 KEYRINGS := \
-	$(if $(ACTIVE-LIST),keyrings/deb-n-1-fi-archive-keyring.gpg,) \
-	$(if $(REMOVED-LIST),keyrings/deb-n-1-fi-archive-removed-keys.gpgm,)
+	$(if $(ACTIVE-LIST),keyrings/deb.n-1.fi-archive-keyring.gpg,) \
+	$(if $(REMOVED-LIST),keyrings/deb.n-1.fi-archive-removed-keys.gpgm,)
 
 GPG_HOME := build-gpg-home
 GPG_OPTIONS := --no-options --no-default-keyring --no-auto-check-trustdb --trustdb-name ./trustdb.gpg
@@ -17,8 +17,8 @@ $(GPG_HOME)/pubring.kbx: $(SUPPORTING-LIST)
 	mkdir -p $(GPG_HOME)
 	gpg --no-options --homedir $(GPG_HOME) --import $^
 
-keyrings/deb-n-1-fi-archive-keyring.gpg: $(ACTIVE-LIST)
-keyrings/deb-n-1-fi-archive-removed-keys.gpg: $(REMOVED-LIST)
+keyrings/deb.n-1.fi-archive-keyring.gpg: $(ACTIVE-LIST)
+keyrings/deb.n-1.fi-archive-removed-keys.gpg: $(REMOVED-LIST)
 
 keyrings/%.gpg:
 	gpg ${GPG_OPTIONS} --keyring $@ --import $^

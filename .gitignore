@@ -1,7 +1,7 @@
+/debian/*.debhelper.log
+/debian/*.substvars
 /debian/.debhelper/
-/debian/deb-n-1-fi-archive-keyring.debhelper.log
-/debian/deb-n-1-fi-archive-keyring.substvars
-/debian/deb-n-1-fi-archive-keyring/
+/debian/deb.n-1.fi-archive-keyring/
 /debian/debhelper-build-stamp
 /debian/files
 

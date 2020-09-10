@@ -1,5 +1,5 @@
 # Set the keyring file to the same priority as stable release
-Package: deb-n-1-fi-archive-keyring
+Package: deb.n-1.fi-archive-keyring
 Pin: origin deb.n-1.fi
 Pin-Priority: 500
 

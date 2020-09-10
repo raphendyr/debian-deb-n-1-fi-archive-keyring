@@ -1,0 +1,11 @@
+Types: deb
+URIs: http://deb.n-1.fi/debian
+Suites: testing
+Components: main contrib non-free
+Signed-By: /usr/share/keyrings/deb.n-1.fi-archive-keyring.gpg
+
+Types: deb-src
+URIs: http://deb.n-1.fi/debian
+Suites: testing
+Components: main
+Signed-By: /usr/share/keyrings/deb.n-1.fi-archive-keyring.gpg

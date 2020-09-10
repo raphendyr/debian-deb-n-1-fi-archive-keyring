@@ -1,18 +1,22 @@
-Source: deb-n-1-fi-archive-keyring
-Priority: important
+Source: deb.n-1.fi-archive-keyring
 Section: misc
+Priority: important
 Maintainer: Jaakko Kantojärvi <jaakko@n-1.fi>
 Uploaders: Jaakko Kantojärvi <jaakko@n-1.fi>
-Build-Depends: debhelper (>= 10), gnupg
+Build-Depends: debhelper (>= 12), gnupg
 Rules-Requires-Root: no
-Standards-Version: 4.1.2
-Vcs-Browser: https://github.com/raphendyr/debian-deb-n-1-fi-archive-keyring
-Vcs-Git: https://github.com/raphendyr/debian-deb-n-1-fi-archive-keyring.git
+Standards-Version: 4.5.0
 Homepage: https://deb.n-1.fi/
+Vcs-Browser: https://github.com/raphendyr/debian-deb.n-1.fi-archive-keyring
+Vcs-Git: https://github.com/raphendyr/debian-deb.n-1.fi-archive-keyring.git
 
-Package: deb-n-1-fi-archive-keyring
+Package: deb.n-1.fi-archive-keyring
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends}
+Replaces: deb-n-1-fi-archive-keyring
+Breaks: deb-n-1-fi-archive-keyring
 Description: GnuPG archive keys of the deb.n-1.fi archive
- The deb.n-1.fi digitally signs its Release files. This package contains the archive keys used for that. In addition, the package configures deb.n-1.fi as a source repository.
+ The deb.n-1.fi digitally signs its Release files. This package contains
+ the archive keys used for that. In addition, the package configures
+ deb.n-1.fi as a source repository.

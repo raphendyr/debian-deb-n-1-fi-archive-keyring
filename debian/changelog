@@ -1,4 +1,11 @@
-deb-n-1-fi-archive-keyring (2020.9) unstable; urgency=medium
+deb.n-1.fi-archive-keyring (2020.9.1) unstable; urgency=medium
+
+  * Rename package from deb-n-1-fi-archive-keyring to deb.n-1.fi-archive-keyring
+  * Rename all package files to use deb.n-1.fi
+
+ -- Jaakko Kantojärvi <jaakko@n-1.fi>  Thu, 10 Sep 2020 19:55:05 +0300
+
+deb-n-1.fi-archive-keyring (2020.9) unstable; urgency=medium
 
   * Initial release.
 
