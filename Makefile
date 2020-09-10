@@ -37,6 +37,14 @@ clean:
 	rm -f $(KEYRINGS) keyrings/*.cache
 	rm -rf $(GPG_HOME) trustdb.gpg
 
+clean-releases:
+	rm -vf ../$(PACKAGE_NAME)_*.tar.* \
+		../$(PACKAGE_NAME)_*.dsc \
+		../$(PACKAGE_NAME)_*_*.build \
+		../$(PACKAGE_NAME)_*_*.buildinfo \
+		../$(PACKAGE_NAME)_*_*.changes
+	for pkg in $(shell dh_listpackages); do rm -vf ../$${pkg}_*_*.deb; done
+
 build: $(KEYRINGS) verify-results
 
 install: $(KEYRINGS) verify-results
@@ -47,6 +55,10 @@ install: $(KEYRINGS) verify-results
 build-release:
 	debuild -i -I
 
+build-local:
+	dch -l~test "Local test build: $(shell date)"
+	debuild -i -I -uc -us
+
 upload: build-release
 	@echo Uploading changes to the remote, see ~/.dupload.conf
 	for changes in ../$(PACKAGE_NAME)_$(PACKAGE_VERSION)_*.changes; do \
@@ -54,4 +66,4 @@ upload: build-release
 	done
 
 
-.PHONY: verify-results clean build install build-release upload
+.PHONY: verify-results clean clean-releases build install build-release build-local upload
