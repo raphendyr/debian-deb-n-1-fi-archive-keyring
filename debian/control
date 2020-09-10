@@ -2,7 +2,6 @@ Source: deb.n-1.fi-archive-keyring
 Section: misc
 Priority: important
 Maintainer: Jaakko Kantojärvi <jaakko@n-1.fi>
-Uploaders: Jaakko Kantojärvi <jaakko@n-1.fi>
 Build-Depends: debhelper (>= 12), gnupg
 Rules-Requires-Root: no
 Standards-Version: 4.5.0
