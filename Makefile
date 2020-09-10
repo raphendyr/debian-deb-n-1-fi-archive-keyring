@@ -1,3 +1,5 @@
+#!/usr/bin/make -f
+
 ACTIVE-LIST := $(wildcard active-keys/*.asc)
 REMOVED-LIST := $(wildcard removed-keys/*.asc)
 SUPPORTING-LIST := $(wildcard supporting-keys/*.asc)
@@ -21,7 +23,12 @@ keyrings/deb.n-1.fi-archive-keyring.gpg: $(ACTIVE-LIST)
 keyrings/deb.n-1.fi-archive-removed-keys.gpg: $(REMOVED-LIST)
 
 keyrings/%.gpg:
-	gpg ${GPG_OPTIONS} --keyring $@ --import $^
+	rm -f "$@"
+	touch "$@" # this changes the storage from keybox to keyring..
+	gpg ${GPG_OPTIONS} --keyring "$@" --import $^
+	rm -f "$@~"
+	gpg ${GPG_OPTIONS} --no-keyring --import-options import-export --import "$@" > "$@.tmp"
+	mv -f "$@.tmp" "$@"
 
 
 verify-results: $(KEYRINGS) | $(GPG_HOME)/pubring.kbx
