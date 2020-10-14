@@ -11,8 +11,8 @@ KEYRINGS := \
 GPG_HOME := build-gpg-home
 GPG_OPTIONS := --no-options --no-default-keyring --no-auto-check-trustdb --trustdb-name ./trustdb.gpg
 
-PACKAGE_NAME := $(shell dpkg-parsechangelog -ldebian/changelog | grep '^Source: ' | cut -f2 -d' ')
-PACKAGE_VERSION := $(shell dpkg-parsechangelog -ldebian/changelog | grep '^Version: ' | cut -f2 -d' ')
+PACKAGE_NAME := $(shell dpkg-parsechangelog -ldebian/changelog -S Source)
+PACKAGE_VERSION := $(shell dpkg-parsechangelog -ldebian/changelog -S Version)
 
 
 $(GPG_HOME)/pubring.kbx: $(SUPPORTING-LIST)
@@ -60,11 +60,11 @@ install: $(KEYRINGS) verify-results
 
 
 build-release:
-	debuild -i -I
+	debuild
 
 build-local:
-	dch -l~test "Local test build: $(shell date)"
-	debuild -i -I -uc -us
+	dch -t -l~test "Local test build: $(shell date)"
+	debuild -uc -us
 
 upload: build-release
 	@echo Uploading changes to the remote, see ~/.dupload.conf
