@@ -56,3 +56,8 @@ volumes:
 - name: cache
   temp: {}
 
+---
+kind: signature
+hmac: fdde3785ab103e1309f80fecc90ccb7188d7769026fc577e410e2500cff68647
+
+...
