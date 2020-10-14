@@ -25,7 +25,7 @@ steps:
   - name: cache
     path: /build
   environment:
-    DEBSIGN_EXPORT_KEY_FILE: /build/release-key.asc
+    DEBSIGN_EXPORT_KEY_FILE: /build/deb.n-1.fi-archive-keyring_automated_signing_key.asc
     DEBSIGN_KEY:
       from_secret: debsign_key
   commands:
@@ -37,6 +37,8 @@ steps:
   - mk-build-deps -i -r
   # build
   - debuild --no-lintian -d
+  # log artifacts
+  - sha256sum /build/deb.n-1.fi-archive-keyring_*.*
 
 - name: publish
   image: plugins/github-release
@@ -46,7 +48,7 @@ steps:
   settings:
     api_key:
       from_secret: github_api_token
-    files: /build/*.*
+    files: /build/deb.n-1.fi-archive-keyring_*.*
   when:
     event: tag
     ref:
@@ -58,6 +60,6 @@ volumes:
 
 ---
 kind: signature
-hmac: fdde3785ab103e1309f80fecc90ccb7188d7769026fc577e410e2500cff68647
+hmac: ab362ff734e0d0ec8d42790b58815ed7dabcd46ea3d66d42f262271b318ce49e
 
 ...
