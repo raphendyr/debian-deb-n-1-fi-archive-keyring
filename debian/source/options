@@ -1,2 +1,5 @@
 --diff-ignore
+--extend-diff-ignore=\.drone.*
 --tar-ignore
+--tar-ignore=.drone*
+--tar-ignore=.env

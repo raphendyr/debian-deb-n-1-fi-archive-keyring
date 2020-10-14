@@ -1,0 +1,58 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+# First, verify that the tag is signed by a trusted key.
+# All trusted keys are listed below. To edit the list, the person requires
+# access to the drone.io server to sign this file.
+# I.e., without access token, one cannot add new trusted keys.
+- name: verify-tag
+  image: docker.io/raphendyr/drone-steps-git-verify
+  environment:
+    MAINTAINER_KEYS_BASE: supporting-keys
+    MAINTAINER_KEYS: >
+      43D826EBEABB460B144138713E0AE979094264F6
+  when:
+    event: tag
+    ref:
+    - refs/tags/*
+
+- name: build
+  image: docker.io/raphendyr/drone-steps-debian-dev
+  volumes:
+  - name: cache
+    path: /build
+  environment:
+    DEBSIGN_EXPORT_KEY_FILE: /build/release-key.asc
+    DEBSIGN_KEY:
+      from_secret: debsign_key
+  commands:
+  - init.sh
+  - import-gpg-key
+  # build deps
+  - cp -a ../src /build/package
+  - cd /build/package
+  - mk-build-deps -i -r
+  # build
+  - debuild --no-lintian -d
+
+- name: publish
+  image: plugins/github-release
+  volumes:
+  - name: cache
+    path: /build
+  settings:
+    api_key:
+      from_secret: github_api_token
+    files: /build/*.*
+  when:
+    event: tag
+    ref:
+    - refs/tags/*
+
+volumes:
+- name: cache
+  temp: {}
+
